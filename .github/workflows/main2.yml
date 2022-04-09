@@ -9,23 +9,24 @@ on:
     branches-ignore:
         - ga-ignore-
   pull_request:
-     branches-ignore:
+    branches-ignore:
         - ga-ignore-
-  env:
-      MIRROR_URL: https://github.com/EpitechPromo2026/B-DOP-200-COT-2-1-chocolatine-olouwachegoun.badou.git
-      EXECUTABLES: pushwap
+    env:
+       MIRROR_URL: https://github.com/EpitechPromo2026/B-DOP-200-COT-2-1-chocolatine-olouwachegoun.badou.git
+       EXECUTABLES: pushwap
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
  check_repository_cleanliness:
-     # The type of runner that the job will run on
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-       - uses: actions/checkout@v3
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access if
+      - uses: actions/checkout@v3
 
       - name: Unwanted file detected
         run: find . -type f \( -name "*.o" -o -name "*~" -o -name "#*" -o -name "*.a" -o -name "*.so" -o -name "*.gcno" -o -name "*.gcda" -o -name "*.gcov" -o -name "tmp" \)
