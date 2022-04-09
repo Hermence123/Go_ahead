@@ -11,12 +11,11 @@ on:
   pull_request:
     branches-ignore:
         - ga-ignore-
-env:
+    env:
         MIRROR_URL: https://github.com/EpitechPromo2026/B-DOP-200-COT-2-1-chocolatine-olouwachegoun.badou.git
-        EXECUTABLES: lib/my/libmy.a
-
+        EXECUTABLES: pushwap
     # Allows you to run this workflow manually from the Actions tab
-workflow_dispatch:
+  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
