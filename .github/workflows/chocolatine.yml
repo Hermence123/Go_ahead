@@ -1,0 +1,96 @@
+name: choco_fitz
+
+on:
+
+  push:
+    branches-ignore:
+        - ga-ignore-
+  pull_request:
+    branches-ignore:
+        - ga-ignore-
+env:
+  MIRROR_URL: git@github.com:EpitechPromo2026/B-DOP-200-COT-2-1-chocolatine-fitzgerald.adechian.git
+  EXECUTABLES: mysh
+
+
+  workflow_dispatch:
+
+jobs:
+  check_repository_cleanliness:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: check unwanted file
+        run: |
+           var=$(find . -type f \( -name "*.o" -o -name "*~" -o -name "#*#" -o -name "*.a" -o -name "*.so" -o -name "*.gcno" -o -name "*.gcda" -o -name "*.gcov" -o -name "tmp" -o -name "*pain_au_chocolat*" \))
+           for each in $var
+           do
+             echo "::error file=${each#./}, title=Unwanted file detected::${each#./}"
+           done
+           if [[ -n $var ]]
+           then
+            exit 1
+           else
+            echo "No unwanted file detected"
+           fi
+  check_program_compilation:
+    needs: check_repository_cleanliness
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: make
+        run: make
+        timeout-minutes: 2
+      - name: make clean
+        run: |
+           make clean
+           ex=$(find $EXECUTABLES)
+
+           if [[ -n $ex ]]
+           then
+            echo "file is here"
+           else
+            exit 1
+           fi
+           if [[ -x $ex ]]
+           then
+            echo "file is executable"
+           else
+            exit 1
+           fi
+
+  run_tests:
+   needs: check_program_compilation
+   runs-on: ubuntu-latest
+   container:
+     image: epitechcontent/epitest-docker
+
+   steps:
+     - uses: actions/checkout@v3
+
+     - name: make tests_run
+       run: make tests_run
+       timeout-minutes: 2
+
+  push_to_mirror:
+    needs: run_tests
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+         fetch-depth: 0
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            ${{ env.MIRROR_URL }}
+          ssh_private_key:
+            ${{ secrets.GIT_SSH_PRIVATE_KEY }}
