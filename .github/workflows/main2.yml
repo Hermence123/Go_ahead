@@ -25,10 +25,10 @@ jobs:
 
       - name: Unwanted file detected
         run: |
-            my_variables=$(find . -type f \( -name "*.o" -o -name "*~" -o -name "#*" -o -name "*.a" -o -name "*.so" -o -name "*.gcno" -o -name "*.gcda" -o -name "*.gcov" -o -name "tmp" -o -name "*pain_au_chocolat*"\))
-            for each in $my_variable
+            my_variables=$(find . -type f \( -name "*.o" -o -name "*~" -o -name "#*" -o -name "*.a" -o -name "*.so" -o -name "*.gcno" -o -name "*.gcda" -o -name "*.gcov" -o -name "tmp" -o -name "*pain_au_chocolat*" \))
+            for my in $my_variable
             do
-              echo "::error file=${each#./}, title=Unwanted file detected::$(each#./}"
+              echo "::error file=${my#./}, title=Unwanted file detected::$(my#./}"
             done
             if [[ -n $my_variables ]]
             then
