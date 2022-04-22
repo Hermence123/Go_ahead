@@ -17,7 +17,7 @@ env:
 
 jobs:
   check_repository_cleanliness:
-
+    name: Unwanted files detected
     runs-on: ubuntu-latest
 
     steps:
