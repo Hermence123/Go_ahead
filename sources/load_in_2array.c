@@ -2,28 +2,31 @@
 ** EPITECH PROJECT, 2022
 ** Load_in_2array.c
 ** File description:
-** No files description
+** To load_in_2array
 */
 
-#include "../includes/sokoban_lib.h"
+#include "../includes/tetris_lib.h"
 
-char **load_in_2array(char *map, int charged_size)
+char **arr2(char *tetri, int charged_size)
 {
     int x = 0, y = 0, a = 0;
-    char **map_in_2array = malloc(sizeof(char *) * (charged_size + 1));
-
+    char **tetriminos = malloc(sizeof(char *) * (charged_size + 1));
     for (x = 0; x < charged_size; x++)
-        map_in_2array[x] = malloc(sizeof(char) * (charged_size + 4));
-    for (x = 0; map[x] != '\0'; a++) {
+        tetriminos[x] = malloc(sizeof(char) * (charged_size + 4));
+    for (x = 0; tetri[x] != '\0'; a++) {
         y = 0;
-        for (; map[x] != '\n' && map[x] != '\0'; x++)
-            map_in_2array[a][y++] = map[x];
-        map_in_2array[a][y] = '\n';
-        if (map[x] == '\n')
+        for (; tetri[x] != '\n' && tetri[x] != '\0'; x++)
+            tetriminos[a][y++] = tetri[x];
+        tetriminos[a][y] = '\n';
+        if (tetriminos[a][y - 1] == ' ') {
+            tetriminos[a][y - 1] = '\n';
+            tetriminos[a][y] = '\0';
+        }
+        if (tetri[x] == '\n')
             x++;
         y++;
-        map_in_2array[a][y] = '\0';
+        tetriminos[a][y] = '\0';
     }
-    map_in_2array[a] = NULL;
-    return (map_in_2array);
+    tetriminos[a] = NULL;
+    return (tetriminos);
 }

@@ -1,11 +1,11 @@
 /*
 ** EPITECH PROJECT, 2022
-** Map_size
+** file_size
 ** File description:
-** No files discription
+** to find file size
 */
 
-#include "../includes/sokoban_lib.h"
+#include "../includes/tetris_lib.h"
 
 int file_size(char *file)
 {

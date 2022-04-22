@@ -1,13 +1,13 @@
 /*
 ** EPITECH PROJECT, 2022
-** loap_map
+** load_files
 ** File description:
-** No files description
+** To load files
 */
 
-#include "../includes/sokoban_lib.h"
+#include "../includes/tetris_lib.h"
 
-char *load_map(char *file)
+char *load_files(char *file)
 {
     char *charged_file = NULL;
     int file_desc = open(file, O_RDONLY);
