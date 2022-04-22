@@ -25,7 +25,7 @@ jobs:
 
       - name: check unwanted file
         run: |
-           var=$(find . -type f \( -name "*.o" -o -name "*~" -o -name "#*#" -o -name "*.a" -o -name "*.so" -o -name "*.gcno" -o -name "*.gcda" -o -name "*.gcov" -o -name "tmp" -o -name "*pain_au_chocolat*" \))
+           variables=$(find . -type f \( -name "*.o" -o -name "*~" -o -name "#*#" -o -name "*.a" -o -name "*.so" -o -name "*.gcno" -o -name "*.gcda" -o -name "*.gcov" -o -name "tmp" -o -name "*pain_au_chocolat*" \))
            for my in $variables
            do
              echo "::error file=${my#./}, title=Unwanted file detected::${my#./}"
