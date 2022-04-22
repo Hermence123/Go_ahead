@@ -35,7 +35,6 @@ jobs:
             exit 1
            else
             echo "No unwanted file detected"
-            exit 1
            fi
   check_program_compilation:
     needs: check_repository_cleanliness
